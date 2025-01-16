@@ -9,8 +9,8 @@ export default () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/posts');
-      setPosts(response.data);
+      const response = await axios.get('http://localhost:4002/posts');
+      setPosts(response.da.data);
     } catch (error) {
       console.error(error);
     }
@@ -26,7 +26,7 @@ export default () => {
     className="card" style={{ width: '30%', marginBottom: '20px' }} key={post.id}>
       <div className="card-body">
         <h5 className="card-title">{post.title}</h5>
-        <CommentList postId={post.id} />
+        <CommentList comments={post.comments} />
         <CommentCreate postId={post.id} />
         <p className="card-text">{post.content}</p>
       </div>
