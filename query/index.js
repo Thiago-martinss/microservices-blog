@@ -22,10 +22,10 @@ app.post('/posts', (req, res) => {
    }
 
     if (type === 'COMMENT_CREATED') {
-        const { id, content, postId } = data;
+        const { id, content, postId, status } = data;
 
         const post = posts[postId];
-        post.comments.push({ id, content });
+        post.comments.push({ id, content, status});
    }
    console.log(posts);
    
