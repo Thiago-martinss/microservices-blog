@@ -9,10 +9,10 @@ export default () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get('http://localhost:4002/posts');
-      setPosts(response.da.data);
+      const res = await axios.get('http://localhost:4002/posts');
+      setPosts(res.data);
     } catch (error) {
-      console.error(error);
+      setPosts([]);
     }
   };
 
@@ -22,21 +22,27 @@ export default () => {
 
   const renderedPosts = Object.values(posts).map((post) => {
     return (
-    <div 
-    className="card" style={{ width: '30%', marginBottom: '20px' }} key={post.id}>
-      <div className="card-body">
-        <h5 className="card-title">{post.title}</h5>
-        <CommentList comments={post.comments} />
-        <CommentCreate postId={post.id} />
-        <p className="card-text">{post.content}</p>
+      <div
+        className="card"
+        style={{ width: '30%', marginBottom: '20px' }}
+        key={post.id}
+      >
+        <div className="card-body">
+          <h5 className="card-title">{post.title}</h5>
+          <CommentList comments={post.comments} />
+          <CommentCreate postId={post.id} />
+          <p className="card-text">{post.content}</p>
+        </div>
+        <a href={`/posts/${post.id}`} className="btn btn-primary">
+          Read More
+        </a>
       </div>
-      <a href={`/posts/${post.id}`} className="btn btn-primary">Read More</a>
-    </div>
     );
   });
 
-  return <div className='d-flex flex-row flex-wrap justify-content-between'>
-    
-    {renderedPosts}
-  </div>;
+  return (
+    <div className="d-flex flex-row flex-wrap justify-content-between">
+      {renderedPosts}
+    </div>
+  );
 };

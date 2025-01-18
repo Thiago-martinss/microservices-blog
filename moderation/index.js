@@ -5,29 +5,26 @@ const axios = require('axios');
 const app = express();
 app.use(bodyParser.json());
 
-app.post('/events', async(req, res) => {
+app.post('/events', async (req, res) => {
   const { type, data } = req.body;
 
   if (type === 'COMMENT_CREATED') {
-    const  status = data.content.includes('orange') ? 'rejected' : 'approved';
+    const status = data.content.includes('orange') ? 'rejected' : 'approved';
 
-   await axios.post('http://localhost:4005/events', {
+    await axios.post('http://localhost:4005/events', {
       type: 'CommentModerated',
       data: {
-      id: data.id,
-      postId: data.postId,
-      status,
-      content: data.content
+        id: data.id,
+        postId: data.postId,
+        status,
+        content: data.content
       }
     });
-    
   }
-  
+
   res.send({});
-  
 });
 
-
 app.listen(4003, () => {
-  console.log('Server is running on port 4003');
+  console.log('Listening on 4003');
 });
